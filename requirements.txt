@@ -1,0 +1,4 @@
+paramiko
+decouple
+requests
+os
