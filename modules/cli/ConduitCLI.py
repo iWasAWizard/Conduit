@@ -1,5 +1,6 @@
 import subprocess
 import re
+import pexpect
 
 def remove_ansi_escape_sequences(text):
     ansi_escape_pattern = re.compile(r'''

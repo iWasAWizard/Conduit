@@ -1,4 +1,7 @@
 paramiko
 decouple
-requests
-os
+pexpect
+pyvmomi
+qemu.qmp
+prettyprint
+tqdm
