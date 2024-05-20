@@ -3,6 +3,7 @@
 
 from unittest import TestCase, mock
 import unittest
+from conduit.modules.cli import ConduitCLI
 
 class TestConduitCLIAdvanced(TestCase):
     """
