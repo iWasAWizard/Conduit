@@ -9,7 +9,7 @@ Different modules can be (read: are) slotted into the framework using the same c
 
 ## Tool Integration
 
-As you develop, you'll find that, more often than not, you're making calls to things that you aren't even really using. The Every custom tool has to have 2 things. A class that defines its available actions and their parameters, and a class that defines any verifiers that it reveals.
+As you develop, you'll find that, more often than not, you're making calls to things that you aren't even really using. Every custom tool has to have 2 things: A class that defines its available actions and their parameters, and a class that defines any verifiers that it reveals.
 
 The cool thing about that paradigm is that it makes basically a module template. You write out the functions, wrapping your desired effects (actions and verifiers like self.act.* and self.check.*), and define the messages that will be used in the procedure. Easy!
 
@@ -17,4 +17,6 @@ These procedures will get spat out in 2 formats. An HTML document, for human rea
 
 ## The State of Things
 
-Right now, this program is brand-new. I'm making it up on my own, with a very rudimentary understanding of what needs to be accomplished to achieve this goal. I need to shake off the rust.
+Right now, this program is brand-new. I'm making it up on my own, with a very rudimentary understanding of what needs to be accomplished to achieve this goal. Plus, I need to shake off the rust.
+
+Contributions and bug reports are both welcome.
