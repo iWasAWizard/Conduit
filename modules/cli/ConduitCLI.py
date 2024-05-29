@@ -1,4 +1,3 @@
-import subprocess
 import re
 import pexpect
 
@@ -27,9 +26,42 @@ class ConduitCLI:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.log.close()
 
-    def execute_command(self, command):
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, encoding='utf-8')
-        stdout, stderr = process.communicate()
+    def execute_command(self, command, timeout=30):
+        child = pexpect.spawn(command, encoding='utf-8')
+        child.logfile = self.log
+
+        try:
+            child.expect(pexpect.EOF, timeout=timeout)
+            stdout = child.before
+        except pexpect.TIMEOUT:
+            child.terminate()
+            stdout = child.before
+            stderr = 'Command timed out'
+        
         stdout = remove_ansi_escape_sequences(stdout)
-        stderr = remove_ansi_escape_sequences(stderr)
-        return stdout, stderr
+        return stdout, stderr if 'stderr' in locals() else ''
+
+    def sendline(self, command, expected_output=None, timeout=30):
+        child = pexpect.spawn(command, encoding='utf-8')
+        child.logfile = self.log
+        
+        if expected_output:
+            child.expect(expected_output, timeout=timeout)
+        child.sendline(command)
+        
+        try:
+            child.expect(pexpect.EOF, timeout=timeout)
+            stdout = child.before
+        except pexpect.TIMEOUT:
+            child.terminate()
+            stdout = child.before
+            stderr = 'Command timed out'
+        
+        stdout = remove_ansi_escape_sequences(stdout)
+        return stdout, stderr if 'stderr' in locals() else ''
+
+# Example usage:
+# with ConduitCLI() as cli:
+#     output, error = cli.execute_command('ls -l')
+#     print('Output:', output)
+#     print('Error:', error)
