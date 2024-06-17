@@ -1,6 +1,10 @@
 import re
 import pexpect
 
+from classes.actions import Action
+from classes.verifiers import Verify
+
+@staticmethod
 def remove_ansi_escape_sequences(text):
     ansi_escape_pattern = re.compile(r'''
         \x1B  # ESC
@@ -25,6 +29,10 @@ class ConduitCLI:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.log.close()
+
+class CLIAction(Action):
+    def __init__(self, command):
+        self.command = command
 
     def execute_command(self, command, timeout=30):
         child = pexpect.spawn(command, encoding='utf-8')
@@ -56,12 +64,17 @@ class ConduitCLI:
             child.terminate()
             stdout = child.before
             stderr = 'Command timed out'
-        
-        stdout = remove_ansi_escape_sequences(stdout)
-        return stdout, stderr if 'stderr' in locals() else ''
+
+class CLIVerifier(Verify):
+    def __init__(self, expected_output):
+        self.expected_output = expected_output
+
+    def verify(self):
+        print(f"Verifying CLI output: {self.expected_output}")
+        #TODO verifier logic, regex, etc
 
 # Example usage:
 # with ConduitCLI() as cli:
-#     output, error = cli.execute_command('ls -l')
+#     output, error = cli.run_command('ls -l')
 #     print('Output:', output)
 #     print('Error:', error)

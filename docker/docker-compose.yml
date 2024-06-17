@@ -1,7 +1,6 @@
 version: '3'
 services:
-
-  conduit-app:
+  conduit:
     restart: always
     env_file: .env
     build: .
@@ -11,6 +10,7 @@ services:
       - 8000:8000
     networks:
       - web_network
+    command: python main.py /app/example/user_script.py
 
   nginx:
     restart: always
@@ -22,7 +22,7 @@ services:
     networks:
       - web_network
     depends_on:
-      - conduit-app
+      - conduit
 
 networks:
   web_network:

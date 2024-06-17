@@ -1,7 +1,23 @@
 import pexpect
 import paramiko
+from classes.actions import Action
+from classes.verifiers import Verify
 
-class ConduitSSHModule:
+@staticmethod
+def remove_ansi_escape_sequences(text):
+    ansi_escape_pattern = re.compile(r'''
+        \x1B  # ESC
+        (?:   # 7-bit C1 Fe (except CSI)
+            [@-Z\\-_]
+        |     # or [ for CSI, followed by a control sequence
+            \[
+            [0-?]*  # Parameter bytes
+            [ -/]*  # Intermediate bytes
+            [@-~]   # Final byte
+        )
+        ''', re.VERBOSE)
+
+class ConduitSSH:
     def __init__(self, hostname, port=22, username=None, password=None, key_filename=None, logfile='ssh_log.txt'):
         self.hostname = hostname
         self.port = port
@@ -21,6 +37,23 @@ class ConduitSSHModule:
         self.client.close()
         self.log.close()
 
+    @staticmethod
+    def remove_ansi_escape_sequences(text):
+        ansi_escape_pattern = re.compile(r'''
+            \x1B  # ESC
+            (?:   # 7-bit C1 Fe (except CSI)
+                [@-Z\\-_]
+            |     # or [ for CSI, followed by a control sequence
+                \[
+                [0-?]*  # Parameter bytes
+                [ -/]*  # Intermediate bytes
+                [@-~]   # Final byte
+            )
+        ''', re.VERBOSE)
+        return ansi_escape_pattern.sub('', text)
+
+class SSHAction(Action):
+    
     def execute_command(self, command):
         stdin, stdout, stderr = self.client.exec_command(command)
         stdout_data = stdout.read().decode()
@@ -47,24 +80,6 @@ class ConduitSSHModule:
             output = child.before
             error = 'Command timed out'
         
-        output = self.remove_ansi_escape_sequences(output)
-        return output, error if 'error' in locals() else ''
-
-    @staticmethod
-    def remove_ansi_escape_sequences(text):
-        ansi_escape_pattern = re.compile(r'''
-            \x1B  # ESC
-            (?:   # 7-bit C1 Fe (except CSI)
-                [@-Z\\-_]
-            |     # or [ for CSI, followed by a control sequence
-                \[
-                [0-?]*  # Parameter bytes
-                [ -/]*  # Intermediate bytes
-                [@-~]   # Final byte
-            )
-        ''', re.VERBOSE)
-        return ansi_escape_pattern.sub('', text)
-
 # Example usage:
 # with ConduitSSHModule(hostname='example.com', username='user', password='password') as ssh:
 #     output, error = ssh.execute_command('ls -l')
