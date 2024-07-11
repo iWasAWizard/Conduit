@@ -6,8 +6,8 @@ from program import my_custom_commands
 
 def create_user(username, password):
     self.act.cli.send_keys("./my_tool")
-    self.act.cli.send_keys("create user f'username'")
-    self.verify.cli.response_contains(search_str="Created new user f'username'",
+    self.act.cli.send_keys("create user f'{username}'")
+    self.verify.cli.response_contains(search_str="Created new user f'{username}'",
                                       silent=True)
     
 def user_list_contains(search_str):
@@ -26,19 +26,19 @@ for i in self.vm.list_vms(host="my.esxi.local"):
 with self.ssh.connect(host="10.0.0.1",
                       user="user",
                       password="nicetry",
-                      message="In a new terminal window, SSH into f'host' as f'user'") as ssh1:
+                      message="In a new terminal window, SSH into f'{host}' as f'{user}'") as ssh1:
 
     ssh1.act.cli.send(command="echo 'hello world'",
-                      message="From the SSH prompt, execute the following command:\nf'command'",
+                      message="From the SSH prompt, execute the following command:\nf'{command}'",
                       silent=False)
 
     ssh1.verify.cli.find_match(search_str="hello world",
-                               message="In the SSH prompt, confirm that the following string is present:\nf'search_str'",
+                               message="In the SSH prompt, confirm that the following string is present:\nf'{search_str}'",
                                silent=False)
 
-    ssh1.act.my_custom_commands.create_user(username="user",_
+    ssh1.act.my_custom_commands.create_user(username="user",
                                             password="nicetry",
-                                            message="In the SSH prompt, open my_tool, and create a new user named f'username'",
+                                            message="In the SSH prompt, open my_tool, and create a new user named f'{username}'",
                                             silent=False)
 
     ssh1.verify.my_custom_commands.user_list_contains(search_str="user",
