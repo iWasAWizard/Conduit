@@ -1,6 +1,6 @@
 import pexpect
 import paramiko
-from classes.actions import Action, Verify
+from app.classes.actions import Action
 import regex as re
 
 @staticmethod

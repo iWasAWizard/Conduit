@@ -1,7 +1,7 @@
 import re
 import pexpect
 
-from classes.actions import Action, Verify
+from app.classes.actions import Action, Verify
 
 @staticmethod
 def remove_ansi_escape_sequences(text):
