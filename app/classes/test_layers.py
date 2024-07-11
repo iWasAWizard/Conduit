@@ -5,7 +5,6 @@ from typing import List, Dict
 
 
 class TestStep:
-
     def __init__(self, step_id: int, message: str):
         self.step_id = step_id
         self.message = message
