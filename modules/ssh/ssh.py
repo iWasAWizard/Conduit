@@ -1,7 +1,7 @@
 import pexpect
 import paramiko
-from classes.actions import Action
-from classes.verifiers import Verify
+from classes.actions import Action, Verify
+import regex as re
 
 @staticmethod
 def remove_ansi_escape_sequences(text):

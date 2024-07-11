@@ -19,8 +19,8 @@ def user_list_contains(search_str):
 
 
 # Refresh VM
-for i in self.vm.list_vms(host="my.esxi.local"):
-    self.vm.revert_to_snapshot(host=i)
+for i in self.vmware.list_vms(host="my.esxi.local"):
+    self.vmware.revert_to_snapshot(host=i)
 
 @testcase
 with self.ssh.connect(host="10.0.0.1",
