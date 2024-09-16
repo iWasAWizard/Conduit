@@ -1,2 +1,29 @@
-Stream of consciousness list
+** HOUSEKEEPING
+ALWAYS: Exception handling.
+1. Implement returning CLI sessions in SSH and CMD to context managers.
+2. Implement the action/verifier templates and standardize SSH and CMD
+3. Implement logging properly, including optional recording to external syslog server
+4. Implement function wrapper that includes message content, option to exclude from procedure export (quiet), and criticality (fast fail)
+5. Implement dictionary or JSON framework for saving results of test steps (message, success) so that they can be exported later.
+6. Implement handler for step criticality. If a critical step fails, fast fail the test.
+7. Break tests into campaigns, procedures and steps, defined by decorators.
 
+
+** FEATURES
+1. Introduce modified verifers for SSH and CMD, to use regular expression search (return first result, or return all results)
+2. Module for TCP/UDP flooding a target destination
+3. Module for control of Selenium. (include auto-generate POM and create general functions for basic actions)
+4. Module for HTTP actions and response. POST, GET, etc as well as a return code interpreter for verification.
+5. Module to initiate, filter and terminate network scans with wireshark/tcpdump. Include ability to wait for a specified packet to show up or terminate after timeout.
+6. Module for logging system performance metrics during execution of test steps.
+7. Module for VMware ESXi/vCenter, wrap pyvmomi to expose VM manipulation functions like create, remove, snapshot control, power control and import/export hardware configuration/description text.
+8. Module for nmap. Scan target IP/IP range/hostname. Return dictionary containing name, timestamp, exposed ports, etc.
+7a. Add a function to enumerate all VMs matching given parameters.
+8. Module for QEMU, deploy VM, enumerate VMs, display or modify VM configurations, create or delete VMs. 
+9. Create endpoint "agent" to allow arbitrary python code execution on the target under test. (How will dependencies be handled?)
+10. Reporting handler. Export results (automatically or not) to SquashTM, Markdown.
+11. Support definition of requirements as a dictionary. This can be used to add "satsifies requirement xyz" text to verifier text output.
+
+** FUTURE
+1. Dockerize! Create a baseline docker that the application under test can be installed over top of, return artifacts to a shared folder
+2. A bash script to build this docker container. Define the platform and modules, spit out a docker image ready to be overlaid with the application under test through dockerfile.
