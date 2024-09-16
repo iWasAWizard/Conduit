@@ -1,3 +1,8 @@
+** PRIORITIES
+1. Figure out what else is supposed to go in config.ini
+2. Squash export
+3. XML export, with AT LEAST Jenkins format.
+
 ** HOUSEKEEPING
 ALWAYS: Exception handling.
 1. Implement returning CLI sessions in SSH and CMD to context managers.
@@ -7,7 +12,7 @@ ALWAYS: Exception handling.
 5. Implement dictionary or JSON framework for saving results of test steps (message, success) so that they can be exported later.
 6. Implement handler for step criticality. If a critical step fails, fast fail the test.
 7. Break tests into campaigns, procedures and steps, defined by decorators.
-
+8. Add integration tests for every module.
 
 ** FEATURES
 1. Introduce modified verifers for SSH and CMD, to use regular expression search (return first result, or return all results)
@@ -22,8 +27,9 @@ ALWAYS: Exception handling.
 8. Module for QEMU, deploy VM, enumerate VMs, display or modify VM configurations, create or delete VMs. 
 9. Create endpoint "agent" to allow arbitrary python code execution on the target under test. (How will dependencies be handled?)
 10. Reporting handler. Export results (automatically or not) to SquashTM, Markdown.
-11. Support definition of requirements as a dictionary. This can be used to add "satsifies requirement xyz" text to verifier text output.
+11. Support definition of requirements as a dictionary. This can be used to append "satsifies requirement xyz" text to verifier text output.
 
 ** FUTURE
 1. Dockerize! Create a baseline docker that the application under test can be installed over top of, return artifacts to a shared folder
 2. A bash script to build this docker container. Define the platform and modules, spit out a docker image ready to be overlaid with the application under test through dockerfile.
+3. Look into Robot Framework-style plaintext keyword executions. This will require an interpreter.
