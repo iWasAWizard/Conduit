@@ -4,13 +4,13 @@ import configparser
 import json
 import importlib
 
-def get_config(config_path):
+def get_config(config_path="./config.ini"):
     config = configparser.ConfigParser()
     config.read(f"{config_path}")
 
     return config
 
-def get_module_list(config):
+def get_module_list(config_path="./config.ini"):
     module_list = json.loads(config["APP"]["modules"])
 
     return module_list
