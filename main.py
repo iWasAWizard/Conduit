@@ -11,7 +11,7 @@ def get_config(config_path="./config.ini"):
     return config
 
 def get_module_list(config_path="./config.ini"):
-    module_list = json.loads(config["APP"]["modules"])
+    module_list = json.loads(config["modules"])
 
     return module_list
 
