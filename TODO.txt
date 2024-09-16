@@ -12,7 +12,8 @@ ALWAYS: Exception handling.
 5. Implement dictionary or JSON framework for saving results of test steps (message, success) so that they can be exported later.
 6. Implement handler for step criticality. If a critical step fails, fast fail the test.
 7. Break tests into campaigns, procedures and steps, defined by decorators.
-8. Add integration tests for every module.
+8. Add unit/integration tests for every module.
+7. Figure out what I'm going to do with config.ini
 
 ** FEATURES
 1. Introduce modified verifers for SSH and CMD, to use regular expression search (return first result, or return all results)
